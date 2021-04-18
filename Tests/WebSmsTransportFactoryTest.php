@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Notifier\Bridge\WebSms\Tests;
+namespace Okorneliuk\Symfony\NotifierBridge\WebSms\Tests;
 
-use Symfony\Component\Notifier\Bridge\WebSms\WebSmsTransportFactory;
+use Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransportFactory;
 use Symfony\Component\Notifier\Test\TransportFactoryTestCase;
 use Symfony\Component\Notifier\Transport\TransportFactoryInterface;
 

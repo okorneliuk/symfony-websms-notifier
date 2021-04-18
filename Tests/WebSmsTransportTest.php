@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Notifier\Bridge\WebSms\Tests;
+namespace Okorneliuk\Symfony\NotifierBridge\WebSms\Tests;
 
-use Symfony\Component\Notifier\Bridge\WebSms\WebSmsTransport;
+use Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransport;
 use Symfony\Component\Notifier\Message\ChatMessage;
 use Symfony\Component\Notifier\Message\MessageInterface;
 use Symfony\Component\Notifier\Message\SmsMessage;

@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Composer install & unit tests
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
           matrix:
-            php: [7.3, 7.4]
+            php: [7.2, 7.3, 7.4]
 
     runs-on: ubuntu-latest
 

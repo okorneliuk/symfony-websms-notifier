@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Notifier\Bridge\WebSms;
+namespace Okorneliuk\Symfony\NotifierBridge\WebSms;
 
 use Symfony\Component\Notifier\Exception\TransportException;
 use Symfony\Component\Notifier\Exception\UnsupportedMessageTypeException;
