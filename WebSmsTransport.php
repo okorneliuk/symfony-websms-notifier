@@ -60,25 +60,22 @@ final class WebSmsTransport extends AbstractTransport
             throw new UnsupportedMessageTypeException(__CLASS__, SmsMessage::class, $message);
         }
 
-        $endpoint = sprintf('https://%s/rest/?', $this->getEndpoint());
+        $endpoint = sprintf('https://%s/rest/smsmessaging/simple?', $this->getEndpoint());
 
         $httpResponse = $this->client->request('GET', $endpoint, [
             'auth_basic' => [$this->uid, $this->apiKey],
             'query' => [
                 'messageContent' => $message->getSubject(),
-                'test' => $this->testMode ? 0 : 1,
-                'recipientAddressList' => sprintf('["%s"]', $message->getPhone()),
+                'test' => $this->testMode ? 1 : 0,
+                'recipientAddressList' => \str_replace(['+', '-', ' '], '', $message->getPhone()),
             ],
         ]);
 
         try {
-            $response = $httpResponse->toArray();
+            \parse_str($httpResponse->getContent(), $response);
         } catch (ExceptionInterface $e) {
-            $details = ($e instanceof DecodingExceptionInterface) ?
-              'Cannot decode the response from provider.' :
-              'Ivalid HTTP response code from the provider.';
             throw new TransportException(
-              'Unable to send the SMS. '.$details,
+              'Unable to send the SMS. Ivalid HTTP response code from the provider.',
               $httpResponse,
               0,
               $e

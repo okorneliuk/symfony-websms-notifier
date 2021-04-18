@@ -14,7 +14,7 @@
     "require": {
         "php": ">=7.2.5",
         "symfony/http-client": "^4.4|^5.2",
-        "symfony/notifier": "^5.3"
+        "symfony/notifier": "^5.2"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^5.2"
