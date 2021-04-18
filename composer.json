@@ -1,0 +1,29 @@
+{
+    "name": "okorneliuk/symfony-websms-notifier",
+    "type": "symfony-bridge",
+    "description": "Symfony WebSms Notifier Bridge",
+    "keywords": ["sms", "websms", "notifier"],
+    "homepage": "https://github.com/okorneliuk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleh Korneliuk",
+            "email": "oleh.korneliuk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "symfony/http-client": "^4.4|^5.2",
+        "symfony/notifier": "^5.3"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^5.2"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Component\\Notifier\\Bridge\\WebSms\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "dev"
+}
