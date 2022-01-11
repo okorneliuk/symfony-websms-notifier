@@ -7,7 +7,7 @@ DSN example
 -----------
 
 ```
-WEBSMS_DSN=websms://CLIENT_ID:CLIENT_SECRET@default?test_mode=0
+WEBSMS_DSN=websms://CLIENT_ID:API_KEY@default?test_mode=TEST_MODE
 ```
 
 where:

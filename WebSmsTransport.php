@@ -65,7 +65,7 @@ final class WebSmsTransport extends AbstractTransport
         $httpResponse = $this->client->request('GET', $endpoint, [
             'auth_basic' => [$this->uid, $this->apiKey],
             'query' => [
-                'messageContent' => $message->getSubject(),
+                'messageContent' => iconv('UTF-8', 'ISO-8859-1', $message->getSubject()),
                 'test' => $this->testMode ? 1 : 0,
                 'recipientAddressList' => \str_replace(['+', '-', ' '], '', $message->getPhone()),
             ],
