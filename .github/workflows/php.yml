@@ -10,12 +10,13 @@ jobs:
   build:
     strategy:
           matrix:
-            php: [7.2, 7.3, 7.4]
+            php: [7.2, 7.3, 7.4, 8.0, 8.1]
+            symfony: ['5.4', '6.0']
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -30,6 +31,8 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
+      env:
+        SYMFONY_REQUIRE: ${{ matrix.symfony }}
       run: composer install --prefer-dist --no-progress
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
