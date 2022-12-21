@@ -9,6 +9,7 @@
 
 namespace Okorneliuk\Symfony\NotifierBridge\WebSms;
 
+use Symfony\Component\Notifier\Exception\LogicException;
 use Symfony\Component\Notifier\Exception\TransportException;
 use Symfony\Component\Notifier\Exception\UnsupportedMessageTypeException;
 use Symfony\Component\Notifier\Message\MessageInterface;
@@ -60,12 +61,16 @@ final class WebSmsTransport extends AbstractTransport
             throw new UnsupportedMessageTypeException(__CLASS__, SmsMessage::class, $message);
         }
 
+        if (false === $message = iconv('UTF-8', 'ISO-8859-1', $message->getSubject())) {
+            throw new LogicException('Failed to convert encoding of the message. Please review the message.');
+        }
+
         $endpoint = sprintf('https://%s/rest/smsmessaging/simple?', $this->getEndpoint());
 
         $httpResponse = $this->client->request('GET', $endpoint, [
             'auth_basic' => [$this->uid, $this->apiKey],
             'query' => [
-                'messageContent' => iconv('UTF-8', 'ISO-8859-1', $message->getSubject()),
+                'messageContent' => $message,
                 'test' => $this->testMode ? 1 : 0,
                 'recipientAddressList' => \str_replace(['+', '-', ' '], '', $message->getPhone()),
             ],
