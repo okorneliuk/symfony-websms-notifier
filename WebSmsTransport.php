@@ -61,7 +61,7 @@ final class WebSmsTransport extends AbstractTransport
             throw new UnsupportedMessageTypeException(__CLASS__, SmsMessage::class, $message);
         }
 
-        if (false === $message = iconv('UTF-8', 'ISO-8859-1', $message->getSubject())) {
+        if (false === $messageText = iconv('UTF-8', 'ISO-8859-1', $message->getSubject())) {
             throw new LogicException('Failed to convert encoding of the message. Please review the message.');
         }
 
@@ -70,7 +70,7 @@ final class WebSmsTransport extends AbstractTransport
         $httpResponse = $this->client->request('GET', $endpoint, [
             'auth_basic' => [$this->uid, $this->apiKey],
             'query' => [
-                'messageContent' => $message,
+                'messageContent' => $messageText,
                 'test' => $this->testMode ? 1 : 0,
                 'recipientAddressList' => \str_replace(['+', '-', ' '], '', $message->getPhone()),
             ],
