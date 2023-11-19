@@ -12,7 +12,7 @@ namespace Okorneliuk\Symfony\NotifierBridge\WebSms\Tests;
 use Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransport;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\Notifier\Message\ChatMessage;
-use Symfony\Component\Notifier\Message\NullMessage;
+use Symfony\Component\Notifier\Message\PushMessage;
 use Symfony\Component\Notifier\Message\MessageInterface;
 use Symfony\Component\Notifier\Message\SmsMessage;
 use Symfony\Component\Notifier\Test\TransportTestCase;
@@ -42,6 +42,6 @@ final class WebSmsTransportTest extends TransportTestCase
     public static function unsupportedMessagesProvider(): iterable
     {
         yield [new ChatMessage('Hello!')];
-        yield [new NullMessage()];
+        yield [new PushMessage('Hello!')];
     }
 }
