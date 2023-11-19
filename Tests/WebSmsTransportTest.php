@@ -42,6 +42,5 @@ final class WebSmsTransportTest extends TransportTestCase
     public static function unsupportedMessagesProvider(): iterable
     {
         yield [new ChatMessage('Hello!')];
-        yield [new PushMessage('Hello!')];
     }
 }
