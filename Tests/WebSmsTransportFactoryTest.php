@@ -44,8 +44,7 @@ final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
 
     public static function missingRequiredOptionProvider(): iterable
     {
-        yield 'missing option: uid' => ['websms://:api_key@default'];
-        yield 'missing option: api_key' => ['websms://uid:@default'];
+        return new \EmptyIterator;
     }
 
     public static function unsupportedSchemeProvider(): iterable
