@@ -23,7 +23,7 @@ final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
         return new WebSmsTransportFactory();
     }
 
-    public function createProvider(): iterable
+    public static function createProvider(): iterable
     {
         yield [
             'websms://host.test',
@@ -36,20 +36,20 @@ final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
         ];
     }
 
-    public function supportsProvider(): iterable
+    public static function supportsProvider(): iterable
     {
         yield [true, 'websms://uid:api_key@default'];
         yield [false, 'somethingElse://uid:api_key@default'];
     }
 
-    public function unsupportedSchemeProvider(): iterable
+    public static function missingRequiredOptionProvider(): iterable
     {
         yield ['somethingElse://uid:api_key@default'];
     }
 
-    public function incompleteDsnProvider(): iterable
+    public static function unsupportedSchemeProvider(): iterable
     {
-      yield ['websms://uid@default'];
-      yield ['websms://:api_key@default'];
+        yield ['websms://uid@default'];
+        yield ['websms://:api_key@default'];
     }
 }
