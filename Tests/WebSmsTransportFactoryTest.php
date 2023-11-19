@@ -26,8 +26,8 @@ final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
     public static function createProvider(): iterable
     {
         yield [
-            'websms://host.test?from=acme',
-            'websms://accountSid:authToken@host.test?from=acme&test_mode=0',
+            'websms://host.test',
+            'websms://accountSid:authToken@host.test?test_mode=0',
         ];
 
         yield [
@@ -44,7 +44,8 @@ final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
 
     public static function missingRequiredOptionProvider(): iterable
     {
-        yield 'missing option: from' => ['somethingElse://uid:api_key@default'];
+        yield 'missing option: uid' => ['websms://:api_key@default'];
+        yield 'missing option: api_key' => ['websms://uid:@default'];
     }
 
     public static function unsupportedSchemeProvider(): iterable
