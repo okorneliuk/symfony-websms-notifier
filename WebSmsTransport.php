@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * (c) Oleh Korneliuk <oleh.korneliuk@gmail.com>
  *
@@ -24,30 +26,28 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Oleh Korneliuk <oleh.korneliuk@gmail.com>
  */
-final class WebSmsTransport extends AbstractTransport
+final class WebSmsTransport extends AbstractTransport implements \Stringable
 {
     protected const HOST = 'api.websms.com';
 
-    private $uid;
-    private $apiKey;
-    private $testMode;
-
-    public function __construct(string $uid, string $apiKey, bool $testMode, HttpClientInterface $client = null, EventDispatcherInterface $dispatcher = null)
-    {
-        $this->uid = $uid;
-        $this->apiKey = $apiKey;
-        $this->testMode = $testMode;
-
+    public function __construct(
+        private readonly string $uid,
+        #[\SensitiveParameter] private readonly string $apiKey,
+        private readonly bool $testMode,
+        ?HttpClientInterface $client = null,
+        ?EventDispatcherInterface $dispatcher = null
+    ) {
         parent::__construct($client, $dispatcher);
     }
 
     public function __toString(): string
     {
+        $dsn = 'websms://'.$this->getEndpoint();
         if ($this->testMode) {
-            return sprintf('websms://%s?test_mode=%s', $this->getEndpoint(), $this->testMode);
+            return $dsn.'?test_mode=1';
         }
 
-        return sprintf('websms://%s', $this->getEndpoint());
+        return $dsn;
     }
 
     public function supports(MessageInterface $message): bool
@@ -93,7 +93,9 @@ final class WebSmsTransport extends AbstractTransport
 
         if ($response['statusCode'] >= 2000 && $response['statusCode'] < 3000) {
             $sentMessage = new SentMessage($message, (string) $this);
-            $sentMessage->setMessageId($matches[1] ?? 0);
+            if (is_string($response['transferId'] ?? null)) {
+                $sentMessage->setMessageId($response['transferId']);
+            }
 
             return $sentMessage;
         }
