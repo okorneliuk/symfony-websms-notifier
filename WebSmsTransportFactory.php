@@ -34,7 +34,13 @@ final class WebSmsTransportFactory extends AbstractTransportFactory
 
         $uid = $this->getUser($dsn);
         $apiKey = $this->getPassword($dsn);
-        $testMode = filter_var($dsn->getOption('test_mode', false), \FILTER_VALIDATE_BOOLEAN);
+        if (method_exists($dsn, 'getBooleanOption')) {
+            // Symfony Notifier 7.3+ – use the boolean-specific method if available
+            $testMode = $dsn->getBooleanOption('test_mode', false);
+        } else {
+            // Older versions – get the option and convert manually
+            $testMode = filter_var($dsn->getOption('test_mode', false), \FILTER_VALIDATE_BOOLEAN);
+        }
         $host = 'default' === $dsn->getHost() ? null : $dsn->getHost();
         $port = $dsn->getPort();
 

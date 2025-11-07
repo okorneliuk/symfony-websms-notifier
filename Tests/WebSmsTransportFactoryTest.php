@@ -9,11 +9,19 @@
 
 namespace Okorneliuk\Symfony\NotifierBridge\WebSms\Tests;
 
+// Symfony Notifier <7.2 support
+if (!class_exists(\Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase::class)) {
+    class_alias(
+        \Symfony\Component\Notifier\Test\TransportFactoryTestCase::class,
+        \Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase::class
+    );
+}
+
 use Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransportFactory;
-use Symfony\Component\Notifier\Test\TransportFactoryTestCase;
+use Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase;
 use Symfony\Component\Notifier\Transport\TransportFactoryInterface;
 
-final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
+final class WebSmsTransportFactoryTest extends AbstractTransportFactoryTestCase
 {
     /**
      * @return WebSmsTransportFactory
@@ -44,7 +52,7 @@ final class WebSmsTransportFactoryTest extends TransportFactoryTestCase
 
     public static function missingRequiredOptionProvider(): iterable
     {
-        return new \EmptyIterator;
+        return new \EmptyIterator();
     }
 
     public static function unsupportedSchemeProvider(): iterable
