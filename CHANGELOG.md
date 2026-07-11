@@ -26,5 +26,11 @@ CHANGELOG
 
  * Added support of Symfony 7.
 
-## 1.2.0
+## 1.2.1
  * Bumped PHP and Symfony dependencies.
+
+## 1.2.2
+ * Added support of Symfony 8.
+
+## 1.2.3
+ * Improved workflow matrix, small fixes.

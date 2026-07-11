@@ -19,7 +19,8 @@ where:
 Then add a service:
 
 ```yaml
-# app/config/notifier.yml
+# config/notifier.yaml
+# ...
 services:
     notifier.transport_factory.websms:
         class: 'Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransportFactory'

@@ -12,8 +12,6 @@ namespace Okorneliuk\Symfony\NotifierBridge\WebSms\Tests;
 use Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransport;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\Notifier\Message\ChatMessage;
-use Symfony\Component\Notifier\Message\PushMessage;
-use Symfony\Component\Notifier\Message\MessageInterface;
 use Symfony\Component\Notifier\Message\SmsMessage;
 use Symfony\Component\Notifier\Test\TransportTestCase;
 use Symfony\Component\Notifier\Transport\TransportInterface;

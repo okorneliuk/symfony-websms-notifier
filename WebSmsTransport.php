@@ -19,7 +19,6 @@ use Symfony\Component\Notifier\Message\SentMessage;
 use Symfony\Component\Notifier\Message\SmsMessage;
 use Symfony\Component\Notifier\Transport\AbstractTransport;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -80,7 +79,7 @@ final class WebSmsTransport extends AbstractTransport implements \Stringable
             \parse_str($httpResponse->getContent(), $response);
         } catch (ExceptionInterface $e) {
             throw new TransportException(
-              'Unable to send the SMS. Ivalid HTTP response code from the provider.',
+              'Unable to send the SMS. Invalid HTTP response code from the provider.',
               $httpResponse,
               0,
               $e
