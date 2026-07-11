@@ -34,3 +34,6 @@ CHANGELOG
 
 ## 1.2.3
  * Improved workflow matrix, small fixes.
+
+## 1.2.4
+ * Fixed workflow matrix.
