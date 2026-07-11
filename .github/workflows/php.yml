@@ -71,6 +71,7 @@ jobs:
         run: |
           if [ "${{ matrix.dependencies || 'default' }}" = "lowest" ]; then
             composer update --prefer-lowest --prefer-stable --prefer-dist --no-progress --no-interaction
+            composer update symfony/phpunit-bridge --with-dependencies --prefer-dist --no-progress --no-interaction
           else
             composer install --prefer-dist --no-progress --no-interaction
           fi
