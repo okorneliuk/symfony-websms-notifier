@@ -60,7 +60,12 @@ final class WebSmsTransport extends AbstractTransport implements \Stringable
             throw new UnsupportedMessageTypeException(__CLASS__, SmsMessage::class, $message);
         }
 
-        $options = $message->getOptions()?->toArray() ?? [];
+        $messageOptions = $message->getOptions();
+        if (null !== $messageOptions && !$messageOptions instanceof WebSmsOptions) {
+            throw new UnsupportedMessageTypeException(__CLASS__, SmsMessage::class, $message);
+        }
+
+        $options = $messageOptions?->toArray() ?? [];
         $options['messageContent'] = $message->getSubject();
         $options['recipientAddressList'] = [$message->getPhone()];
         $options['test'] = $this->testMode;
