@@ -9,24 +9,15 @@
 
 namespace Okorneliuk\Symfony\NotifierBridge\WebSms\Tests;
 
-// Symfony Notifier <7.2 support
-if (!class_exists(\Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase::class)) {
-    class_alias(
-        \Symfony\Component\Notifier\Test\TransportFactoryTestCase::class,
-        \Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase::class
-    );
-}
-
 use Okorneliuk\Symfony\NotifierBridge\WebSms\WebSmsTransportFactory;
 use Symfony\Component\Notifier\Test\AbstractTransportFactoryTestCase;
-use Symfony\Component\Notifier\Transport\TransportFactoryInterface;
+use Symfony\Component\Notifier\Test\IncompleteDsnTestTrait;
 
 final class WebSmsTransportFactoryTest extends AbstractTransportFactoryTestCase
 {
-    /**
-     * @return WebSmsTransportFactory
-     */
-    public function createFactory(): TransportFactoryInterface
+    use IncompleteDsnTestTrait;
+
+    public function createFactory(): WebSmsTransportFactory
     {
         return new WebSmsTransportFactory();
     }
@@ -53,6 +44,12 @@ final class WebSmsTransportFactoryTest extends AbstractTransportFactoryTestCase
     public static function missingRequiredOptionProvider(): iterable
     {
         return new \EmptyIterator();
+    }
+
+    public static function incompleteDsnProvider(): iterable
+    {
+        yield 'missing user' => ['websms://:api_key@default'];
+        yield 'missing API password' => ['websms://uid@default'];
     }
 
     public static function unsupportedSchemeProvider(): iterable

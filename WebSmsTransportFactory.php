@@ -14,17 +14,13 @@ namespace Okorneliuk\Symfony\NotifierBridge\WebSms;
 use Symfony\Component\Notifier\Exception\UnsupportedSchemeException;
 use Symfony\Component\Notifier\Transport\AbstractTransportFactory;
 use Symfony\Component\Notifier\Transport\Dsn;
-use Symfony\Component\Notifier\Transport\TransportInterface;
 
 /**
  * @author Oleh Korneliuk <oleh.korneliuk@gmail.com>
  */
 final class WebSmsTransportFactory extends AbstractTransportFactory
 {
-    /**
-     * @return WebSmsTransport
-     */
-    public function create(Dsn $dsn): TransportInterface
+    public function create(Dsn $dsn): WebSmsTransport
     {
         $scheme = $dsn->getScheme();
 
@@ -34,13 +30,7 @@ final class WebSmsTransportFactory extends AbstractTransportFactory
 
         $uid = $this->getUser($dsn);
         $apiKey = $this->getPassword($dsn);
-        if (method_exists($dsn, 'getBooleanOption')) {
-            // Symfony Notifier 7.3+ – use the boolean-specific method if available
-            $testMode = $dsn->getBooleanOption('test_mode', false);
-        } else {
-            // Older versions – get the option and convert manually
-            $testMode = filter_var($dsn->getOption('test_mode', false), \FILTER_VALIDATE_BOOLEAN);
-        }
+        $testMode = $dsn->getBooleanOption('test_mode', false);
         $host = 'default' === $dsn->getHost() ? null : $dsn->getHost();
         $port = $dsn->getPort();
 
