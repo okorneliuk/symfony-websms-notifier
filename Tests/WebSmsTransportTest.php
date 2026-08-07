@@ -41,7 +41,7 @@ final class WebSmsTransportTest extends TransportTestCase
     public static function unsupportedMessagesProvider(): iterable
     {
         yield [new ChatMessage('Hello!')];
-        yield [new SmsMessage('+436991234567', 'Hello!', null, new class implements MessageOptionsInterface {
+        yield [new SmsMessage('+436991234567', 'Hello!', 'WebSms', new class implements MessageOptionsInterface {
             public function getRecipientId(): ?string
             {
                 return null;
